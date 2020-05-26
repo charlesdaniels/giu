@@ -19,7 +19,7 @@ func loop() {
 		g.Label("Simple sin(x) plot:"),
 		g.PlotLines("testplot", plotdata),
 		g.Label("sin(x) plot with overlay text, and size:"),
-		g.PlotLinesV("plot label", plotdata, 0, "overlay text", math.MaxFloat32, math.MaxFloat32, 500, 200),
+		// g.PlotLinesV("plot label", plotdata, 0, "overlay text", math.MaxFloat32, math.MaxFloat32, 500, 200),
 	})
 }
 
