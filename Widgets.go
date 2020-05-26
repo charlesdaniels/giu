@@ -119,13 +119,16 @@ type PlotLinesWidget struct {
 
 func (p *PlotLinesWidget) Build() {
 	// imgui.PlotLinesV(p.label, p.values, p.valuesOffset, p.overlayText, p.scaleMin, p.scaleMax, p.graphSize)
-	imgui.BeginPlot(p.label, "x label", "y label", p.graphSize, 0, 0, 0, 0, 0)
-	imgui.Plot(p.label+"plot", p.values, len(p.values), 0, 4)
-	imgui.EndPlot()
+	imgui.BeginChildV(p.label+"container", p.graphSize, true, 0)
+	if imgui.BeginPlot(p.label, "x label", "y label", p.graphSize, 0, 0, 0, 0, 0) {
+		imgui.Plot(p.label, p.values, len(p.values), 0, 4)
+		imgui.EndPlot()
+	}
+	imgui.EndChild()
 }
 
 func PlotLines(label string, values []float32) *PlotLinesWidget {
-	return PlotLinesV(label, values, 0, "", math.MaxFloat32, math.MaxFloat32, 0, 0)
+	return PlotLinesV(label, values, 0, "", math.MaxFloat32, math.MaxFloat32, 640, 480)
 }
 
 func PlotLinesV(label string, values []float32, valuesOffset int, overlayText string, scaleMin, scaleMax, width, height float32) *PlotLinesWidget {
