@@ -671,6 +671,13 @@ func Separator() {
 	C.iggSeparator()
 }
 
+// CollapsingHeader adds a collapsing header.
+func CollapsingHeader(label string) bool {
+	labelArg, labelFin := wrapString(label)
+	defer labelFin()
+	return C.iggCollapsingHeader(labelArg) != 0
+}
+
 // SameLineV is between widgets or groups to layout them horizontally.
 func SameLineV(posX float32, spacingW float32) {
 	C.iggSameLine(C.float(posX), C.float(spacingW))

@@ -1,5 +1,9 @@
 package main
 
+// This file is heavily based on the implot demo:
+//
+// https://github.com/epezent/implot/blob/master/implot_demo.cpp
+
 import (
 	"math"
 
@@ -8,27 +12,36 @@ import (
 )
 
 func loop() {
-	plotdata := make([]float32, 0)
-	x := float32(0)
-	delta := float32(0.01)
-	for len(plotdata) < 1000 {
-		plotdata = append(plotdata, float32(math.Sin(float64(x))))
-		x += delta
-	}
-	g.SingleWindow("hello world", g.Layout{
-		g.Label("Hello world from giu"),
-		g.Label("Simple sin(x) plot:"),
+	g.SingleWindow("ImPlot Binding Demo", g.Layout{
 		g.Wrapper(func() {
-			imgui.BeginChildV("container0", imgui.Vec2{640, 480}, true, 0)
-			if imgui.BeginPlot("plot0", "x label", "y label", imgui.Vec2{640, 480}, 0, 0, 0, 0, 0) {
-				imgui.PlotLineValues("plot0 label!", plotdata, 0)
-				imgui.EndPlot()
+			imgui.Text("ImPlot GoLang Bindings says hello")
+
+			if imgui.CollapsingHeader("Line Plots") {
+				xs1 := make([]float32, 1001)
+				ys1 := make([]float32, len(xs1))
+				for i, _ := range xs1 {
+					xs1[i] = float32(i) * 0.001
+					ys1[i] = 0.5 + 0.5*float32(math.Sin(50*float64(xs1[i])))
+				}
+
+				xs2 := make([]float32, 11)
+				ys2 := make([]float32, len(xs1))
+				for i, _ := range xs2 {
+					xs2[i] = float32(i) * 0.1
+					ys2[i] = xs2[i] * xs2[i]
+				}
+
+				if (imgui.BeginPlot("Line Plot", "x", "f(x)", imgui.Vec2{-1, 0}, 0, 0, 0, 0, 0)) {
+					// XXX: style?
+					imgui.PlotLinePoints("sin(50*x)", xs1, ys1, 0)
+					imgui.PushPlotStyleVarInt(imgui.ImPlotStyleVar_Marker, int(imgui.ImPlotMarker_Circle))
+					imgui.PlotLinePoints("x^2", xs2, ys2, 0)
+					imgui.PopPlotStyleVar(1)
+					imgui.EndPlot()
+				}
 			}
-			imgui.EndChild()
+
 		}),
-		// g.PlotLines("testplot", plotdata),
-		g.Label("sin(x) plot with overlay text, and size:"),
-		// g.PlotLinesV("plot label", plotdata, 0, "overlay text", math.MaxFloat32, math.MaxFloat32, 500, 200),
 	})
 }
 

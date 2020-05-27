@@ -420,6 +420,11 @@ void iggSeparator(void)
    ImGui::Separator();
 }
 
+IggBool iggCollapsingHeader(const char* label)
+{
+   return ImGui::CollapsingHeader(label) ? 1 : 0;
+}
+
 void iggSameLine(float posX, float spacingW)
 {
    ImGui::SameLine(posX, spacingW);

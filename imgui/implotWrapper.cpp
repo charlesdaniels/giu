@@ -26,3 +26,21 @@ void ipgEndPlot() {
 void ipgPlotLineValues(const char* label_id, const float* values, int count, int offset, int stride) {
 	ImPlot::PlotLine(label_id, values, count, offset, stride);
 }
+
+void ipgPlotLinePoints(const char* label_id, const float* xs, const float* ys, int count, int offset, int stride) {
+	ImPlot::PlotLine(label_id, xs, ys, count, offset, stride);
+}
+
+
+void ipgPushStyleVarFloat(ImPlotStyleVar idx, float val) {
+	ImPlot::PushStyleVar(idx, val);
+}
+
+void ipgPushStyleVarInt(ImPlotStyleVar idx, int val) {
+	ImPlot::PushStyleVar(idx, val);
+}
+
+void ipgPopStyleVar(int count) {
+	ImPlot::PopStyleVar(count);
+}
+

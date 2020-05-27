@@ -1,6 +1,7 @@
 #pragma once
 
 #include "imguiWrapperTypes.h"
+#include "implotFlags.h"
 #include <stdbool.h>
 
 #ifdef __cplusplus
@@ -24,6 +25,14 @@ bool ipgBeginPlot(const char* title_id,
 void ipgEndPlot();
 
 void ipgPlotLineValues(const char* label_id, const float* values, int count, int offset, int stride);
+
+void ipgPlotLinePoints(const char* label_id, const float* xs, const float* ys, int count, int offset, int stride);
+
+void ipgPushStyleVarFloat(ImPlotStyleVar idx, float val);
+
+void ipgPushStyleVarInt(ImPlotStyleVar idx, int val);
+
+void ipgPopStyleVar(int);
 
 #ifdef __cplusplus
 }
