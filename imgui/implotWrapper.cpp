@@ -15,8 +15,7 @@ bool ipgBeginPlot(const char* title_id,
                int y3_flags) {
 
 	Vec2Wrapper sizeArg(size);
-	// ImPlot::BeginPlot(title_id, x_label, y_label, *sizeArg, flags, x_flags, y_flags, y2_flags, y3_flags);
-	return ImPlot::BeginPlot(title_id);
+	return ImPlot::BeginPlot(title_id, x_label, y_label, *sizeArg, flags, x_flags, y_flags, y2_flags, y3_flags);
 }
 
 void ipgEndPlot() {
