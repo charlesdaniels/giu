@@ -31,7 +31,7 @@ func loop() {
 					ys2[i] = xs2[i] * xs2[i]
 				}
 
-				if (imgui.BeginPlot("Line Plot", "x", "f(x)", imgui.Vec2{-1, 0}, 0, 0, 0, 0, 0)) {
+				if (imgui.BeginPlot("Line Plot", "x", "f(x)", imgui.Vec2{-1, 0}, int(imgui.ImPlotFlags_Default), int(imgui.ImPlotAxisFlags_Default), int(imgui.ImPlotAxisFlags_Default), int(imgui.ImPlotAxisFlags_Auxiliary), int(imgui.ImPlotAxisFlags_Auxiliary))) {
 					// XXX: style?
 					imgui.PlotLinePoints("sin(50*x)", xs1, ys1, 0)
 					imgui.PushPlotStyleVarInt(imgui.ImPlotStyleVar_Marker, int(imgui.ImPlotMarker_Circle))
