@@ -23,6 +23,6 @@ void ipgEndPlot() {
 	ImPlot::EndPlot();
 }
 
-void ipgPlot(const char* label_id, const float* values, int count, int offset, int stride) {
-	ImPlot::Plot(label_id, values, count, offset, stride);
+void ipgPlotLineValues(const char* label_id, const float* values, int count, int offset, int stride) {
+	ImPlot::PlotLine(label_id, values, count, offset, stride);
 }

@@ -4,6 +4,7 @@ import (
 	"math"
 
 	g "github.com/AllenDang/giu"
+	"github.com/AllenDang/giu/imgui"
 )
 
 func loop() {
@@ -17,13 +18,21 @@ func loop() {
 	g.SingleWindow("hello world", g.Layout{
 		g.Label("Hello world from giu"),
 		g.Label("Simple sin(x) plot:"),
-		g.PlotLines("testplot", plotdata),
+		g.Wrapper(func() {
+			imgui.BeginChildV("container0", imgui.Vec2{640, 480}, true, 0)
+			if imgui.BeginPlot("plot0", "x label", "y label", imgui.Vec2{640, 480}, 0, 0, 0, 0, 0) {
+				imgui.PlotLineValues("plot0 label!", plotdata, 0)
+				imgui.EndPlot()
+			}
+			imgui.EndChild()
+		}),
+		// g.PlotLines("testplot", plotdata),
 		g.Label("sin(x) plot with overlay text, and size:"),
-		g.PlotLinesV("plot label", plotdata, 0, "overlay text", math.MaxFloat32, math.MaxFloat32, 500, 200),
+		// g.PlotLinesV("plot label", plotdata, 0, "overlay text", math.MaxFloat32, math.MaxFloat32, 500, 200),
 	})
 }
 
 func main() {
-	wnd := g.NewMasterWindow("Hello world", 600, 800, g.MasterWindowFlagsNotResizable, nil)
+	wnd := g.NewMasterWindow("Hello world", 700, 800, g.MasterWindowFlagsNotResizable, nil)
 	wnd.Main(loop)
 }

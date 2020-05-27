@@ -22,12 +22,16 @@ func EndPlot() {
 	C.ipgEndPlot()
 }
 
-func Plot(label_id string, values []float32, count, offset, stride int) {
+// The stride is always 4, because this is sizeof(float32).
+const implotStride = 4
+
+func PlotLineValues(label_id string, values []float32, offset int) {
 	label_idArg, label_idFin := wrapString(label_id)
 	defer label_idFin()
 	valuesArray := make([]C.float, len(values))
 	for i, value := range values {
 		valuesArray[i] = C.float(value)
 	}
-	C.ipgPlot(label_idArg, &valuesArray[0], C.int(count), C.int(offset), C.int(stride))
+
+	C.ipgPlotLineValues(label_idArg, &valuesArray[0], C.int(len(values)), C.int(offset), implotStride)
 }

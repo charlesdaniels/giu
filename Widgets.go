@@ -118,17 +118,11 @@ type PlotLinesWidget struct {
 }
 
 func (p *PlotLinesWidget) Build() {
-	// imgui.PlotLinesV(p.label, p.values, p.valuesOffset, p.overlayText, p.scaleMin, p.scaleMax, p.graphSize)
-	imgui.BeginChildV(p.label+"container", p.graphSize, true, 0)
-	if imgui.BeginPlot(p.label, "x label", "y label", p.graphSize, 0, 0, 0, 0, 0) {
-		imgui.Plot(p.label, p.values, len(p.values), 0, 4)
-		imgui.EndPlot()
-	}
-	imgui.EndChild()
+	imgui.PlotLinesV(p.label, p.values, p.valuesOffset, p.overlayText, p.scaleMin, p.scaleMax, p.graphSize)
 }
 
 func PlotLines(label string, values []float32) *PlotLinesWidget {
-	return PlotLinesV(label, values, 0, "", math.MaxFloat32, math.MaxFloat32, 640, 480)
+	return PlotLinesV(label, values, 0, "", math.MaxFloat32, math.MaxFloat32, 0, 0)
 }
 
 func PlotLinesV(label string, values []float32, valuesOffset int, overlayText string, scaleMin, scaleMax, width, height float32) *PlotLinesWidget {
@@ -254,6 +248,31 @@ func Child(id string, border bool, width, height float32, flags WindowFlags, lay
 		border: border,
 		flags:  flags,
 		layout: layout,
+	}
+}
+
+// WrapperWidget is an escape-hatch for when it is necessary to interface
+// directly with imgui. This lets you create a "widget" in GUI's model
+// of the universe which really just gives you a way to inject your own
+// code when Build() is called on it.
+//
+// This is not the preferred way to do things. If you find yourself using
+// WrapperWidget in your own code, consider properly wrapping up the imgui
+// widget you are using and contributing it back to GUI.
+//
+// WrapperWidget should NOT be used as part of other GIU widgets, except for
+// prototyping.
+type WrapperWidget struct {
+	wrapperFunction func()
+}
+
+func (w *WrapperWidget) Build() {
+	w.wrapperFunction()
+}
+
+func Wrapper(wrapperFunction func()) *WrapperWidget {
+	return &WrapperWidget{
+		wrapperFunction: wrapperFunction,
 	}
 }
 

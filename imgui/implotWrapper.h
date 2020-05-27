@@ -23,7 +23,7 @@ bool ipgBeginPlot(const char* title_id,
 
 void ipgEndPlot();
 
-void ipgPlot(const char* label_id, const float* values, int count, int offset, int stride);
+void ipgPlotLineValues(const char* label_id, const float* values, int count, int offset, int stride);
 
 #ifdef __cplusplus
 }
