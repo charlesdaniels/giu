@@ -114,40 +114,62 @@ const (
 	ImPlotMarker_Asterisk ImPlotMarker = C.ImPlotMarker_Asterisk
 )
 
+func float2float(vals []float32) []C.float {
+	res := make([]C.float, len(vals))
+	for i, value := range vals {
+		res[i] = C.float(value)
+	}
+
+	return res
+}
+
+func float2floatPtr(vals []float32) *C.float {
+	arr := float2float(vals)
+	return &arr[0]
+}
+
 func PlotLineValues(label_id string, values []float32, offset int) {
 	label_idArg, label_idFin := wrapString(label_id)
 	defer label_idFin()
-	valuesArray := make([]C.float, len(values))
-	for i, value := range values {
-		valuesArray[i] = C.float(value)
-	}
 
-	C.ipgPlotLineValues(label_idArg, &valuesArray[0], C.int(len(values)), C.int(offset), implotStride)
+	C.ipgPlotLineValues(label_idArg, float2floatPtr(values), C.int(len(values)), C.int(offset), implotStride)
 }
 
 func PlotLinePoints(label_id string, xs, ys []float32, offset int) {
 	label_idArg, label_idFin := wrapString(label_id)
 	defer label_idFin()
 
-	xsC := make([]C.float, len(xs))
-	for i, value := range xs {
-		xsC[i] = C.float(value)
+	// silently choose the shorter of the two lists if they are mismatched
+	//
+	// XXX: maybe this should throw an error?
+	l := len(xs)
+	if len(ys) < l {
+		l = len(ys)
 	}
 
-	ysC := make([]C.float, len(ys))
-	for i, value := range ys {
-		ysC[i] = C.float(value)
-	}
+	C.ipgPlotLinePoints(label_idArg, float2floatPtr(xs), float2floatPtr(ys), C.int(l), C.int(offset), implotStride)
+}
+
+func PlotScatterValues(label_id string, values []float32, offset int) {
+	label_idArg, label_idFin := wrapString(label_id)
+	defer label_idFin()
+
+	C.ipgPlotScatterValues(label_idArg, float2floatPtr(values), C.int(len(values)), C.int(offset), implotStride)
+}
+
+func PlotScatterPoints(label_id string, xs, ys []float32, offset int) {
+	label_idArg, label_idFin := wrapString(label_id)
+	defer label_idFin()
 
 	// silently choose the shorter of the two lists if they are mismatched
 	//
 	// XXX: maybe this should throw an error?
-	l := len(xsC)
-	if len(ysC) < l {
-		l = len(ysC)
+	l := len(xs)
+	if len(ys) < l {
+		l = len(ys)
 	}
 
-	C.ipgPlotLinePoints(label_idArg, &xsC[0], &ysC[0], C.int(l), C.int(offset), implotStride)
+	C.ipgPlotScatterPoints(label_idArg, float2floatPtr(xs), float2floatPtr(ys), C.int(l), C.int(offset), implotStride)
 }
 
 func PushPlotStyleVarFloat(idx ImPlotStyleVar, val float32) {
@@ -160,4 +182,17 @@ func PushPlotStyleVarInt(idx ImPlotStyleVar, val int) {
 
 func PopPlotStyleVar(count int) {
 	C.ipgPopStyleVar(C.int(count))
+}
+
+func SetNextPlotLimits(x_min, x_max, y_min, y_max float32, cond int) {
+	C.ipgSetNextPlotLimits(C.float(x_min), C.float(x_max), C.float(y_min), C.float(y_max), C.int(cond))
+}
+
+func PushPlotStyleColor(idx ImPlotCol, col Vec4) {
+	colWrapped, _ := col.wrapped()
+	C.ipgPushStyleColor(C.int(idx), colWrapped)
+}
+
+func PopPlotStyleColor(count int) {
+	C.ipgPopStyleColor(C.int(count))
 }

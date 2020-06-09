@@ -30,6 +30,13 @@ void ipgPlotLinePoints(const char* label_id, const float* xs, const float* ys, i
 	ImPlot::PlotLine(label_id, xs, ys, count, offset, stride);
 }
 
+void ipgPlotScatterValues(const char* label_id, const float* values, int count, int offset, int stride) {
+	ImPlot::PlotScatter(label_id, values, count, offset, stride);
+}
+
+void ipgPlotScatterPoints(const char* label_id, const float* xs, const float* ys, int count, int offset, int stride) {
+	ImPlot::PlotScatter(label_id, xs, ys, count, offset, stride);
+}
 
 void ipgPushStyleVarFloat(ImPlotStyleVar idx, float val) {
 	ImPlot::PushStyleVar(idx, val);
@@ -43,3 +50,15 @@ void ipgPopStyleVar(int count) {
 	ImPlot::PopStyleVar(count);
 }
 
+void ipgSetNextPlotLimits(float x_min, float x_max, float y_min, float y_max, int cond) {
+	ImPlot::SetNextPlotLimits(x_min, x_max, y_min, y_max, cond);
+}
+
+void ipgPushStyleColor(int idx, IggVec4 const *col) {
+	Vec4Wrapper colArg(col);
+	ImPlot::PushStyleColor(idx, *colArg);
+}
+
+void ipgPopStyleColor(int count) {
+	ImPlot::PopStyleColor(count);
+}

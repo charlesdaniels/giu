@@ -28,11 +28,21 @@ void ipgPlotLineValues(const char* label_id, const float* values, int count, int
 
 void ipgPlotLinePoints(const char* label_id, const float* xs, const float* ys, int count, int offset, int stride);
 
+void ipgPlotScatterValues(const char* label_id, const float* values, int count, int offset, int stride);
+
+void ipgPlotScatterPoints(const char* label_id, const float* xs, const float* ys, int count, int offset, int stride);
+
 void ipgPushStyleVarFloat(ImPlotStyleVar idx, float val);
 
 void ipgPushStyleVarInt(ImPlotStyleVar idx, int val);
 
 void ipgPopStyleVar(int);
+
+void ipgSetNextPlotLimits(float x_min, float x_max, float y_min, float y_max, int cond);
+
+void ipgPushStyleColor(int idx, IggVec4 const *col);
+
+void ipgPopStyleColor(int count);
 
 #ifdef __cplusplus
 }
