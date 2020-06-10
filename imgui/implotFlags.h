@@ -6,6 +6,7 @@ extern "C"
 {
 #endif
 
+
 //-----------------------------------------------------------------------------
 // Basic types and flags
 //-----------------------------------------------------------------------------
@@ -15,8 +16,9 @@ typedef int ImPlotAxisFlags;
 typedef int ImPlotCol;
 typedef int ImPlotStyleVar;
 typedef int ImPlotMarker;
+typedef int ImPlotColormap;
 
-// Options for plots
+// Options for plots.
 enum ImPlotFlags_ {
     ImPlotFlags_MousePos    = 1 << 0,  // the mouse position, in plot coordinates, will be displayed in the bottom-right
     ImPlotFlags_Legend      = 1 << 1,  // a legend will be displayed in the top-left
@@ -33,7 +35,7 @@ enum ImPlotFlags_ {
     ImPlotFlags_Default     = ImPlotFlags_MousePos | ImPlotFlags_Legend | ImPlotFlags_Highlight | ImPlotFlags_BoxSelect | ImPlotFlags_ContextMenu | ImPlotFlags_CullData
 };
 
-// Options for plot axes (X and Y)
+// Options for plot axes (X and Y).
 enum ImPlotAxisFlags_ {
     ImPlotAxisFlags_GridLines  = 1 << 0, // grid lines will be displayed
     ImPlotAxisFlags_TickMarks  = 1 << 1, // tick marks will be displayed for each grid line
@@ -48,9 +50,9 @@ enum ImPlotAxisFlags_ {
     ImPlotAxisFlags_Auxiliary  = ImPlotAxisFlags_Default & ~ImPlotAxisFlags_GridLines,
 };
 
-// Plot styling colors
+// Plot styling colors.
 enum ImPlotCol_ {
-    ImPlotCol_Line,          // plot line/outline color (defaults to a rotating color set)
+    ImPlotCol_Line,          // plot line/outline color (defaults to next unused color in current colormap)
     ImPlotCol_Fill,          // plot fill color for bars (defaults to the current line color)
     ImPlotCol_MarkerOutline, // marker outline color (defaults to the current line color)
     ImPlotCol_MarkerFill,    // marker fill color (defaults to the current line color)
@@ -67,7 +69,7 @@ enum ImPlotCol_ {
     ImPlotCol_COUNT
 };
 
-// Plot styling variables
+// Plot styling variables.
 enum ImPlotStyleVar_ {
     ImPlotStyleVar_LineWeight,       // float, line weight in pixels
     ImPlotStyleVar_Marker,           // int,   marker specification
@@ -80,7 +82,7 @@ enum ImPlotStyleVar_ {
     ImPlotStyleVar_COUNT
 };
 
-// Marker specification
+// Marker specifications. You can combine this with binary OR, e.g. ImPlotMarker_Circle | ImPlotMarker_Cross.
 enum ImPlotMarker_ {
     ImPlotMarker_None        = 1 << 0,  // no marker
     ImPlotMarker_Circle      = 1 << 1,  // a circle marker will be rendered at each point
@@ -93,6 +95,21 @@ enum ImPlotMarker_ {
     ImPlotMarker_Cross       = 1 << 8,  // a cross marker will be rendered at each point (not filled)
     ImPlotMarker_Plus        = 1 << 9,  // a plus marker will be rendered at each point (not filled)
     ImPlotMarker_Asterisk    = 1 << 10, // a asterisk marker will be rendered at each point (not filled)
+};
+
+// Built-in colormaps
+enum ImPlotColormap_ {
+    ImPlotColormap_Default  = 0, // ImPlot default colormap         (n=10)
+    ImPlotColormap_Dark     = 1, // a.k.a. matplotlib "Set1"        (n=9)
+    ImPlotColormap_Pastel   = 2, // a.k.a. matplotlib "Pastel1"     (n=9)
+    ImPlotColormap_Paired   = 3, // a.k.a. matplotlib "Paired"      (n=12)
+    ImPlotColormap_Viridis  = 4, // a.k.a. matplotlib "viridis"     (n=11)
+    ImPlotColormap_Plasma   = 5, // a.k.a. matplotlib "plasma"      (n=11)
+    ImPlotColormap_Hot      = 6, // a.k.a. matplotlib/MATLAB "hot"  (n=11)
+    ImPlotColormap_Cool     = 7, // a.k.a. matplotlib/MATLAB "cool" (n=11)
+    ImPlotColormap_Pink     = 8, // a.k.a. matplotlib/MATLAB "pink" (n=11)
+    ImPlotColormap_Jet      = 9, // a.k.a. MATLAB "jet"             (n=11)
+    ImPlotColormap_COUNT
 };
 
 

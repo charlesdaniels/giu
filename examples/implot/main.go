@@ -70,8 +70,6 @@ func loop() {
 
 				imgui.SetNextPlotLimits(0, 100, 0, 500, imgui.ImGuiCond_Once)
 
-				imgui.Text("TODO: for some reason, PushPlotStyleColor(ImPlotCol_Fill) is not respected")
-
 				if (imgui.BeginPlot("Stock Prices", "Days", "Price", imgui.Vec2{-1, 0}, int(imgui.ImPlotFlags_Default), int(imgui.ImPlotAxisFlags_Default), int(imgui.ImPlotAxisFlags_Default), int(imgui.ImPlotAxisFlags_Auxiliary), int(imgui.ImPlotAxisFlags_Auxiliary))) {
 					imgui.PushPlotStyleColor(imgui.ImPlotCol_Line, imgui.Vec4{1, 1, 0, 1})
 					imgui.PushPlotStyleColor(imgui.ImPlotCol_Fill, imgui.Vec4{1, 1, 0, 0.25})
