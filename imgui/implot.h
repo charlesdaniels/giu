@@ -23,6 +23,7 @@
 // ImPlot v0.2 WIP
 
 #pragma once
+
 #include "imgui.h"
 #include "implotFlags.h"
 
