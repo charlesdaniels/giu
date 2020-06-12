@@ -62,21 +62,3 @@ void ipgPushStyleColor(int idx, IggVec4 const *col) {
 void ipgPopStyleColor(int count) {
 	ImPlot::PopStyleColor(count);
 }
-
-void ipgSetNextPlotTicksXValues(const double* values, int n_ticks, const char** labels, bool show_default) {
-	ImPlot::SetNextPlotTicksX(values, n_ticks, labels, show_default);
-}
-
-void ipgSetNextPlotTicksXRange(double x_min, double x_max, int n_ticks, const char** labels, bool show_default) {
-	ImPlot::SetNextPlotTicksX(x_min, x_max, n_ticks, labels, show_default);
-
-}
-
-void ipgSetNextPlotTicksYValues(const double* values, int n_ticks, const char** labels, bool show_default, int y_axis) {
-	ImPlot::SetNextPlotTicksY(values, n_ticks, labels, show_default, y_axis);
-}
-
-void ipgSetNextPlotTicksYRange(double x_min, double x_max, int n_ticks, const char** labels, bool show_default, int y_axis) {
-	ImPlot::SetNextPlotTicksY(x_min, x_max, n_ticks, labels, show_default, y_axis);
-
-}

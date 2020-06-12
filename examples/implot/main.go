@@ -126,36 +126,6 @@ func loop() {
 
 			}
 
-			if imgui.CollapsingHeader("Bar Plots") {
-				labels := []string{"S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "S10"}
-				positions := []float32{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
-				horiz := false
-				imgui.CheckBox("Horizontal", &horiz)
-				xlabel := "Score"
-				ylabel := "Student"
-
-				if horiz {
-					imgui.SetNextPlotLimits(0, 110, -0.5, 9.5, imgui.ImGuiCond_Always)
-					imgui.SetNextPlotTicksYValues(positions, 10, labels, false, 0)
-				} else {
-					imgui.SetNextPlotLimits(-0.5, 9.5, 0, 110, imgui.ImGuiCond_Always)
-					imgui.SetNextPlotTicksXValues(positions, 10, labels, false)
-					xlabel = "Student"
-					ylabel = "Score"
-				}
-
-				if (imgui.BeginPlot("Bar Plot", xlabel, ylabel, imgui.Vec2{-1, 0}, int(imgui.ImPlotFlags_Default), int(imgui.ImPlotAxisFlags_Default), int(imgui.ImPlotAxisFlags_Default), int(imgui.ImPlotAxisFlags_Auxiliary), int(imgui.ImPlotAxisFlags_Auxiliary))) {
-
-					// midtm := []float32{83, 67, 23, 89, 83, 78, 91, 82, 85, 90}
-					// final := []float32{80, 62, 56, 99, 55, 78, 8, 78, 90, 100}
-					// grade := []float32{80, 69, 52, 92, 72, 78, 75, 76, 89, 95}
-					//
-					// if (horiz) {
-					//
-					// }
-				}
-			}
-
 		}),
 	})
 }
