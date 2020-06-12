@@ -44,6 +44,14 @@ void ipgPushStyleColor(int idx, IggVec4 const *col);
 
 void ipgPopStyleColor(int count);
 
+void ipgSetNextPlotTicksXValues(const double* values, int n_ticks, const char** labels, bool show_default);
+
+void ipgSetNextPlotTicksXRange(double x_min, double x_max, int n_ticks, const char** labels, bool show_default);
+
+void ipgSetNextPlotTicksYValues(const double* values, int n_ticks, const char** labels, bool show_default, int y_axis);
+
+void ipgSetNextPlotTicksYRange(double x_min, double x_max, int n_ticks, const char** labels, bool show_default, int y_axis);
+
 #ifdef __cplusplus
 }
 #endif

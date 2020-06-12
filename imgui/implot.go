@@ -196,3 +196,63 @@ func PushPlotStyleColor(idx ImPlotCol, col Vec4) {
 func PopPlotStyleColor(count int) {
 	C.ipgPopStyleColor(C.int(count))
 }
+
+func SetNextPlotTicksXValues(values []float32, n_ticks int, labels []string, show_default bool) {
+	labelCount := len(items)
+	Clabels := make([]*C.char, labelCount)
+	for i, label := range labels {
+		labelArg, labelDeleter := wrapString(label)
+		defer labelDeleter()
+		labels[i] = labelArg
+	}
+
+	valuesCount := len(values)
+	valuesArray := make([]C.float, valuesCount)
+	for i, value := range values {
+		valuesArray[i] = C.float(value)
+	}
+
+	C.ipgSetNextPlotTicksXValues(valuesArray, C.int(n_ticks), Clabels, C.bool(show_default))
+}
+
+func SetNextPlotTicksXRange(x_min, x_max float32, n_ticks int, labels []string, show_default bool) {
+	labelCount := len(labels)
+	Clabels := make([]*C.char, labelCount)
+	for i, label := range labels {
+		labelArg, labelDeleter := wrapString(label)
+		defer labelDeleter()
+		labels[i] = labelArg
+	}
+
+	C.ipgSetNextPlotTicksXValues(C.double(x_min), C.double(x_max), C.int(n_ticks), Clabels, C.bool(show_default))
+}
+
+func SetNextPlotTicksYValues(values []float32, n_ticks int, labels []string, show_default bool, y_axis int) {
+	labelCount := len(labels)
+	Clabels := make([]*C.char, labelCount)
+	for i, label := range labels {
+		labelArg, labelDeleter := wrapString(label)
+		defer labelDeleter()
+		labels[i] = labelArg
+	}
+
+	valuesCount := len(values)
+	valuesArray := make([]C.float, valuesCount)
+	for i, value := range values {
+		valuesArray[i] = C.float(value)
+	}
+
+	C.ipgSetNextPlotTicksYValues(valuesArray, C.int(n_ticks), Clabels, C.bool(show_default))
+}
+
+func SetNextPlotTicksYRange(y_min, y_max float32, n_ticks int, labels []string, show_default bool, y_axis int) {
+	labelCount := len(labels)
+	Clabels := make([]*C.char, labelCount)
+	for i, label := range labels {
+		labelArg, labelDeleter := wrapString(label)
+		defer labelDeleter()
+		labels[i] = labelArg
+	}
+
+	C.ipgSetNextPlotTicksYValues(C.double(y_min), C.double(y_max), C.int(n_ticks), Clabels, C.bool(show_default))
+}
